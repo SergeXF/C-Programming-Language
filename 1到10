@@ -1,0 +1,15 @@
+void PrintN(int N)
+{
+	if (N)
+	{
+		PrintN(N - 1);
+		printf("%d\n", N);
+	}
+	return;
+}
+int main()
+{
+	int N = 10;//递归函数占用空间巨大，10改成10000就会崩溃//递归存在内存里的不是数据，而是整个函数//所以推测，程序调用都是把整个函数搞在内存里了
+	PrintN(N);
+	return 0;
+}
