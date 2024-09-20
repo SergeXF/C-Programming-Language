@@ -1,0 +1,20 @@
+struct Student//结构体 学生
+{
+	//结构体的成员
+	char name[20];
+	int age;
+	char sex[10];
+	char tele[12];
+};
+void print(struct Student* ps)
+{
+	printf("%s %d %s %s\n", (*ps).name, (*ps).age, (*ps).sex, (*ps).tele);
+	printf("%s %d %s %s\n", ps->name, ps->age, ps->sex, ps->tele);//其他两种方法
+}
+int	main()
+{
+	struct Student s = { "SergeXF",19,"nan","19931013097" };
+	//printf("%s %d %s %s\n", s.name, s.age, s.sex, s.tele);//结构体对象（s）访问它的成员用.操作符
+	print(&s);
+	return 0;
+}
