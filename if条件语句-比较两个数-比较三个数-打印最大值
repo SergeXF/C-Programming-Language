@@ -1,0 +1,45 @@
+int my_max2(int x, int y)
+{
+	int a, b, c;
+	scanf("%d %d", &a, &b);
+
+	int z;
+	if (a > b) z = a;
+	else z = b;
+	printf("The max is %d\n", z);
+}
+int my_max3(int x, int y)
+{
+	int a, b, c;
+	scanf("%d %d %d", &a, &b, &c);
+
+	int max = 0;
+
+	if (a > b) {
+		if (a > c) {
+			max = a;
+		}
+		else {
+			max = c;
+		}
+	}
+	else {
+		if (b > c) {
+			max = b;
+		}
+		else {
+			max = c;
+		}
+	}
+
+	printf("The max is %d\n", max);
+}
+int main()
+{
+	int a2=0, b2=0;
+	my_max2(a2, b2);
+
+	int a3 = 0, b3 = 0;
+	my_max3(a3, b3);
+	return 0;
+}
