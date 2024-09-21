@@ -1,0 +1,14 @@
+int main()
+{
+	int a = 0x0012ff40;
+	int* pa = &a;
+	char* pb = &a;
+	printf("%p\n", pa);
+	printf("%p\n", pb);
+	printf("%p\n", pa+1);
+	printf("%p\n", pb+1);
+	printf("%zu\n", &pa);//突然发现这样好像可以做随机数？？？
+	printf("%zu\n", a);//这个是十进制数字，但为什么？？？？？
+	printf("%zu\n", sizeof(pa));//字节长度
+	return 0;
+}
