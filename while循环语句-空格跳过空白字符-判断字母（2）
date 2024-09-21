@@ -1,0 +1,58 @@
+void test1()
+{
+	getchar();//获取字符的ASCII码值，但不获取依旧可以实现
+	printf("tes1\n");
+	char ch = 0;
+	scanf("%c", &ch);
+	if ((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z'))
+	{
+		printf("%c is an alphabet.\n", ch);
+	}
+	else
+	{
+		printf("%c is not an alphabet.\n", ch);
+	}
+		menu();
+}
+void test2()
+{
+	printf("tes2\n");
+	char ch = 0;
+	scanf(" %c", &ch);//如何解决BUG？//前面的空格可以跳过空白字符，否则循环过后，会读取\n，导致错误
+	if ((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z'))
+	{
+		printf("%c is an alphabet.\n", ch);
+	}
+	else
+	{
+		printf("%c is not an alphabet.\n", ch);
+	}
+		//getchar();//获取字符的ASCII码值，但不获取依旧可以实现
+	menu();
+}
+int menu()
+{
+	int input = 0;
+	do {
+		printf("tes1/test2/0\n");//为什么输入多次0才可以退出？如何解决BUG？
+		scanf("%d", &input);
+		switch (input)
+		{
+		case 1:
+			test1();
+			break;
+		case 2:
+			test2();
+			break;
+		case 0:
+			return;
+		default:
+			break;
+		}
+	} while(input);
+}
+int main()
+{
+	menu();
+	return 0;
+}
