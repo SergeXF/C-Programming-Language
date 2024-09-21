@@ -1,0 +1,28 @@
+int main()
+{
+	int a = 0x0012ff40;
+	int* pa = &a;
+	char* pb = &a;
+	printf("pa = %p\n", pa);
+	printf("pb = %p\n", pb);
+	printf("pa+1 = %p\n", pa + 1);
+	printf("pb+1 = %p\n\n", pb + 1);
+	printf("&pa = %zu\n", &pa);//突然发现这样好像可以做随机数？？？
+	printf("a = %zu\n", a);//这个是十进制数字，但为什么？？？？？
+	printf("&a = %zu\n", &a);//？
+	//printf("int=%zu\n\n", int);
+	printf("sizeof(pa) = %zu\n", sizeof(pa));//？
+	printf("sizeof(int) = %zu\n", sizeof(int));
+	printf("sizeof(char) = %zu\n", sizeof(char));
+	printf("sizeof(long) = %zu\n", sizeof(long));//Windows和Microsoft Visual Studio(MSVS)中，为了与旧版本兼容，long和long int(同一个对象)是32位，4个字节//而long long是64位，8字节
+	printf("sizeof(float) = %zu\n", sizeof(float));
+	printf("sizeof(double) = %zu\n", sizeof(double));
+	printf("sizeof(long long) = %zu\n", sizeof(long long));
+	printf("sizeof(int*) = %zu\n", sizeof(int*));//指针变量的大小
+	printf("sizeof(char*) = %zu\n", sizeof(char*));
+	printf("sizeof(long*) = %zu\n", sizeof(long*));
+	printf("sizeof(float*) = %zu\n", sizeof(float*));
+	printf("sizeof(double*) = %zu\n", sizeof(double*));
+	printf("sizeof(long long*) = %zu\n", sizeof(long long*));
+	return 0;
+}
