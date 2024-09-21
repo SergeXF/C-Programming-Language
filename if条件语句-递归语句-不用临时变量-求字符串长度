@@ -1,0 +1,26 @@
+int my_strlen1(char* str)
+{
+	int count = 0;//这就是临时变量
+	while (*str != '\0')
+	{
+		count++;
+		str++;
+	}
+	return count;
+}
+
+int my_strlen2(char* str)
+{
+	if (*str != '\0')
+		return 1 + my_strlen2(str+1);
+	else
+		return 0;
+}
+
+int main()
+{
+	char arr[] = "abc";
+	printf("%d\n", my_strlen1(arr));
+	printf("%d\n", my_strlen2(arr));
+	return 0;
+}
