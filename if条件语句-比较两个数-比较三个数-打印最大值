@@ -3,10 +3,10 @@ int my_max2(int x)
 	int a, b;
 	scanf("%d %d", &a, &b);
 
-	int z;
-	if (a > b) z = a;
-	else z = b;
-	printf("The max is %d\n", z);
+	int max;
+	if (a > b) max = a;
+	else max = b;
+	printf("The max is %d\n", max);
 }
 int my_max3(int x)
 {
