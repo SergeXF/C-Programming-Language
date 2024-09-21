@@ -3,18 +3,28 @@ int main()
 	int a = 0x0012ff40;
 	int* pa = &a;
 	char* pb = &a;
+	printf("&a = %p\n", &a);
 	printf("pa = %p\n", pa);
 	printf("pb = %p\n", pb);
+	printf("&pa = %p\n", &pa);
+	printf("&pb = %p\n", &pb);
+	printf("&a+1 = %p\n", &a + 1);
 	printf("pa+1 = %p\n", pa + 1);
-	printf("pb+1 = %p\n\n", pb + 1);
+	printf("pb+1 = %p\n", pb + 1);
+	printf("&pa+1 = %p\n", &pa + 1);
+	printf("&pb+1 = %p\n\n", &pb + 1);
 
-
-	printf("&pa = %zu\n", &pa);//突然发现这样好像可以做随机数？？？
 	printf("a = %zu\n", a);//这个是十进制数字，但为什么？？？？？
 	printf("&a = %zu\n", &a);//？
 	printf("pa = %zu\n", pa);//？
-	printf("pb = %zu\n\n", pb);//？
+	printf("pb = %zu\n", pb);//？
+	printf("&pa = %zu\n\n", &pa);//突然发现这样好像可以做随机数？？？
 	//printf("int=%zu\n", int);
+	printf("a+1 = %zu\n", a + 1);//这个是十进制数字，但为什么？？？？？
+	printf("&a+1 = %zu\n", &a+1);//？
+	printf("pa+1 = %zu\n", pa+1);//？
+	printf("pb+1 = %zu\n", pb+1);//？
+	printf("&pa+1 = %zu\n\n", &pa + 1);//突然发现这样好像可以做随机数？？？
 
 	printf("sizeof(pa) = %zu\n", sizeof(pa));//？
 	printf("sizeof(int) = %zu\n", sizeof(int));
