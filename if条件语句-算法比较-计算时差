@@ -1,0 +1,59 @@
+int time_difference1()
+{
+	int hour1, minute1;
+	int hour2, minute2;
+	int ih, im;
+	printf("起始时间");
+	scanf("%d %d", &hour1, &minute1);
+	printf("结束时间");
+	scanf("%d %d", &hour2, &minute2);
+	if (hour1 >= hour2 && minute1 > minute2)
+	{
+		ih = hour1 - hour2;
+		im = minute1 = minute2;
+	}
+	else
+	{
+		ih = hour2 - hour1;
+		im = minute2 - minute1;
+	}
+	if (im < 0)
+	{
+		ih--;
+		im = 60 + im;
+	}
+	printf("时差%d:%d", ih, im);
+}
+int time_difference2()
+{
+	int hour1, minute1;
+	int hour2, minute2;
+	printf("请输入第一个时间");
+	scanf("%d %d", &hour1, &minute1);
+	printf("请输入第二个时间");
+	scanf("%d %d", &hour2, &minute2);
+	int ih = hour2 - hour1;
+	int im = minute2 - minute1;
+	if (ih < 0)
+	{
+		if (im > 0)
+		{
+			ih++;
+			im = 60 - im;
+		}
+	}
+	if (im < 0)
+	{
+		ih--;
+		im = 60 + im;
+	}
+	printf("时差%d:%d", ih, im);
+	return 0;
+}
+int main()
+{
+	time_difference1();
+	printf("\n");
+	time_difference2();
+	return 0;
+}
