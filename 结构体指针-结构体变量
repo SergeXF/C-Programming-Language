@@ -1,0 +1,10 @@
+struct Person {
+    char name[50];
+};
+struct Person* p1;
+p1->name;//结构体指针，传址，可以改变原值
+struct Person {
+    char name[50];
+};
+struct Person p1;
+p1.name;//结构体变量，传值，不可以改变原值
