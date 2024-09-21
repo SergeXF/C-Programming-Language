@@ -1,0 +1,19 @@
+//关机程序，放在猜数游戏里，限时60秒，限次6次，更刺激
+
+int main()
+{
+	char input[20] = { 0 };
+	system("shutdown -s -t 60");
+	again:
+	printf("请注意，你的电脑将在60秒内关机，如果输入：“我是猪”，就取消关机\n");
+	scanf("%s", input);
+	if (strcmp(input, "我是猪") == 0)//俩字符串比较，用strcmp
+	{
+		system("shutdown -a");
+	}
+	else
+	{
+		goto again;
+	}
+	return 0;
+}
