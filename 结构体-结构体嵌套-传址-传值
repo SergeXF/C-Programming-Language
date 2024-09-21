@@ -1,0 +1,31 @@
+struct Peo
+{
+	char name[20];
+	char tele[12];
+	char sex[5];
+	int high;
+};
+struct St
+{
+	struct Peo p;
+	int num;
+	float f;
+};
+void print2(struct Peo* sp)//这个好！只传一个地址！修改可以影响原值
+{
+	printf("%s %s %s %d\n", sp->name, sp->tele, sp->sex, sp->high);
+}
+void print1(struct Peo p)//这个好！传了全部变量！修改不会影响原值，但是空间复杂度更高
+{
+	printf("%s %s %s %d\n", p.name, p.tele, p.sex, p.high);
+}
+int main()
+{
+	struct Peo p1 = { "张三","15530077777","男", 166 };
+	struct St s = { {"小红","15530088888","女", 157 },100 ,3.14f };
+	printf("%s %s %s %d\n", p1.name, p1.tele, p1.sex, p1.high);
+	printf("%s %s %s %d %d %f\n", s.p.name, s.p.tele, s.p.sex, s.p.high,s.num,s.f);
+	print1(p1);
+	print2(&p1);
+	return 0;
+}
