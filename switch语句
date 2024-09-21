@@ -1,0 +1,26 @@
+int main()
+{
+	int n = 0;
+	do {
+		scanf("%d", &n);
+		switch (n)
+		{
+		case 1:
+			printf("111\n");
+			break;
+		case 2:
+			printf("222\n");
+			break;
+		case 3:
+			printf("333\n");
+			break;
+		case 0:
+			return;
+		default:
+			printf("666\n");
+			break;
+		}
+	} while (n);
+	printf("888\n");
+	return 0;
+}
