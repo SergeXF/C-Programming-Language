@@ -1,0 +1,120 @@
+//判断链表的回文结构//难得自己写了一回
+typedef struct ListNode
+{
+	int val;
+	struct ListNode* next;
+}ListNode;
+struct ListNode* huiwen(ListNode* head)//之前这个写在被调用位置的后面啦，导致调用函数时找不到这个函数！！！！！
+{
+	ListNode* a, * b;//为什么这么写呢？为什么有*？？？？？
+	a = b = head;
+	while (b && b->next != NULL)//我自己进行了优化，&&后的条件，可以判断奇数个节点
+	{
+		a = a->next;
+		b = b->next->next;
+	}
+	return a;
+}
+ListNode* reverseList1(ListNode* head)//迭代版本//之前写过的反转链表
+{
+	{
+		ListNode* cur = head;
+		while (cur != NULL)
+		{
+			printf("%d->", cur->val);
+			cur = cur->next;
+		}
+		printf("NULL\n");
+	}
+	if (head == NULL)
+	{
+		return NULL;
+	}
+	ListNode* A = huiwen(head);
+	ListNode* n1, * n2, * n3;
+	n1 = NULL;
+	n2 = A;
+	n3 = A->next;
+	while (n2)
+	{
+		n2->next = n1;
+		n1 = n2;
+		n2 = n3;
+		if (n3)
+		{
+			n3 = n3->next;
+		}
+	}
+	int i = 0;
+		while (n1)
+		{
+			i = (head->val == n1->val ? 0 : 1);//之前这个写在最后面啦！！！！！
+			head = head->next;//之前没有赋值给head！！！！！
+			n1 = n1->next;//之前没有赋值给n1！！！！！
+		}
+		if (i == 0)//之前这里写错成赋值符号啦！！！！！
+		{
+			return 1;//是回文链表
+		}
+		else
+		{
+			return 0;//不是回文链表
+		}
+}
+//struct ListNode* huiwen(ListNode* head)//函数写在被调用的位置之后，就是错误的！！！！！！！
+//{
+//	ListNode* a,* b;
+//	a = b = head;
+//	while (b)
+//	{
+//		a = a->next;
+//		b = b->next->next;
+//	}
+//	return a;
+//}
+void ListPrint(ListNode* phead)
+{
+	ListNode* cur = phead;
+	while (cur != NULL)
+	{
+		printf("%d->", cur->val);
+		cur = cur->next;
+	}
+	printf("NULL\n");
+}
+int main()
+{
+	struct ListNode* n1 = (struct ListNode*)malloc(sizeof(struct ListNode));
+	struct ListNode* n2 = (struct ListNode*)malloc(sizeof(struct ListNode));
+	struct ListNode* n3 = (struct ListNode*)malloc(sizeof(struct ListNode));
+	struct ListNode* n4 = (struct ListNode*)malloc(sizeof(struct ListNode));
+	struct ListNode* n5 = (struct ListNode*)malloc(sizeof(struct ListNode));
+	struct ListNode* n6 = (struct ListNode*)malloc(sizeof(struct ListNode));
+	struct ListNode* n7 = (struct ListNode*)malloc(sizeof(struct ListNode));
+	struct ListNode* n8 = (struct ListNode*)malloc(sizeof(struct ListNode));
+	struct ListNode* n9 = (struct ListNode*)malloc(sizeof(struct ListNode));
+	struct ListNode* n10 = (struct ListNode*)malloc(sizeof(struct ListNode));
+	n1->val = 10000000;
+	n2->val = 10000000;
+	n3->val = 10000000;
+	n4->val = 10000000;
+	n5->val = 10000000;
+	n6->val = 10000000;
+	n7->val = 10000000;
+	n8->val = 10000000;
+	n9->val = 10000000;
+	n10->val = 10000000;
+	n1->next = n2;
+	n2->next = n3;
+	n3->next = n4;
+	n4->next = n5;
+	n5->next = n6;
+	n6->next = n7;
+	n7->next = n8;
+	n8->next = n9;
+	n9->next = n10;
+	n10->next = NULL;
+	int A = reverseList1(n1);
+	printf("%d", A);
+	return 0;
+}
