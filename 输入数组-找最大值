@@ -1,10 +1,11 @@
-int main()
+test1()
 {
+	printf("test1，输入4个数字\n");
 	int arr[4] = { 0 };
 	int i = 0;
 	while (i < 4)
 	{
-		scanf("%d", &arr[i]);为什么它每次只读一个数字，下一次读空格后的下一位数字呢？是scanf的特性！
+		scanf("%d", &arr[i]);
 		i++;
 	}
 	int max = arr[0];
@@ -18,5 +19,42 @@ int main()
 		i++;
 	}
 	printf("%d\n", max);
+}
+test2()
+{
+	int i = 1;
+	int n = 0;
+	int max = 0;
+	scanf("%d", &max);
+	while (i < 4)
+	{
+		scanf("%d", &n);
+		if (n > max)
+			max = n;
+		i++;
+	}
+	printf("%d\n", max);
+}
+int main()
+{
+	int n = 0;
+	do {
+		printf("test1/test2，输入4个数字\n退出0\n");
+		scanf("%d", &n);
+		switch (n)
+		{
+		case 1:
+			test1();
+			break;
+		case 2:
+			test2();
+			break;
+		case 0:
+			return;
+		default:
+			printf("错误\n");
+			break;
+		}
+	} while (n);
 	return 0;
 }
