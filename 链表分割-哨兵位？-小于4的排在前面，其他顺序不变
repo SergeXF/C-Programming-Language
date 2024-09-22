@@ -1,0 +1,63 @@
+//链表分割//小于4的排在前面，其他顺序不变
+typedef struct ListNode
+{
+	int val;
+	struct ListNode* next;
+}ListNode;
+ListNode* partition(ListNode* pHead, int x)
+{
+	ListNode* LessHead, * LessTail, * GreaterHead, * GreaterTail;
+	LessHead = LessTail = (struct ListNode*)malloc(sizeof(struct ListNode));//哨兵位？
+	LessTail->next = NULL;
+	GreaterHead = GreaterTail = (struct ListNode*)malloc(sizeof(struct ListNode));
+	GreaterTail->next = NULL;
+	ListNode* cur = pHead;
+	while (cur)
+	{
+		if (cur->val < x)
+		{
+			LessTail->next = cur;
+			LessTail = cur;
+		}
+		else
+		{
+			GreaterTail->next = cur;
+			GreaterTail = cur;
+		}
+		cur = cur->next;
+	}
+	LessTail->next = GreaterHead->next;
+	GreaterTail->next = NULL;
+	ListNode* NewHead = LessHead->next;
+	free(LessHead);//既然是局部变量，不是会自动销毁吗？为什么要free？？？因为局部变量使用malloc之类的动态内存分配时，占用的空间不会自动销毁，但变量本身会销毁，所以不用置空LessHead = NULL；
+	free(GreaterHead);
+	return NewHead;//为什么不直接返回LessHead？？？？？？？？？？？？？？
+}
+void ListPrint(ListNode* phead)
+{
+	ListNode* cur = phead;
+	while (cur != NULL)
+	{
+		printf("%d->", cur->val);
+		cur = cur->next;
+	}
+	printf("NULL\n");
+}
+int main()
+{
+	struct ListNode* n1 = (struct ListNode*)malloc(sizeof(struct ListNode));
+	struct ListNode* n2 = (struct ListNode*)malloc(sizeof(struct ListNode));
+	struct ListNode* n3 = (struct ListNode*)malloc(sizeof(struct ListNode));
+	struct ListNode* n4 = (struct ListNode*)malloc(sizeof(struct ListNode));
+	n1->val = 1;
+	n2->val = 8;
+	n3->val = 5;
+	n4->val = 3;
+	n1->next = n2;
+	n2->next = n3;
+	n3->next = n4;
+	n4->next = NULL;
+	ListNode* n = partition(n1, 4);
+	ListPrint(n);
+	return 0;
+}
