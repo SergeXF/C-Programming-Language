@@ -1,0 +1,19 @@
+int main()
+{
+	char arr1[] = "Hello world!";
+	char arr2[] = "############";
+	int left = 0;
+	int right = strlen(arr2) - 1;//字符用sizeof时要多减去一个隐藏的/0
+	while (left <= right)
+	{
+		arr2[left] = arr1[left];
+		arr2[right] = arr1[right];
+		printf("%s", arr2);
+		Sleep(1000);//<stdlib.h>
+		system("cls");//清屏<windows.h>
+		left++;
+		right--;
+	}
+	printf("%s\n", arr2);
+	return 0;
+}
