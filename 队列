@@ -1,0 +1,120 @@
+//栈和队列——队列
+typedef int QDataType;
+typedef struct QueueNode
+{
+	struct QueueNode* next;
+	QDataType data;
+}QueueNode;
+typedef struct Queue
+{
+	QueueNode* head;
+	QueueNode* tail;
+	//size_t size;//？？？是写在这里吗？？？？？？？
+}Queue;
+void QueueInit(Queue* pq);
+void QueueDestroy(Queue* pq);
+void QueuePush(Queue* pq, QDataType x);
+void QueuePop(Queue* pq);
+QDataType QueueFront(Queue* pq);
+QDataType QueueBack(Queue* pq);
+int QueueSize(Queue* pq);
+bool QueueEmpty(Queue* pq);
+void QueueInit(Queue* pq)
+{
+	assert(pq);
+	pq->head = NULL;
+	pq->tail = NULL;
+}
+void QueueDestroy(Queue* pq)
+{
+	assert(pq);
+	QueueNode* cur = pq->head;
+	while (cur != NULL)
+	{
+		QueueNode* next = cur->next;
+		free(cur);
+		cur = next;
+	}
+	pq->head = pq->tail = NULL;
+}
+void QueuePush(Queue* pq, QDataType x)
+{
+	assert(pq);
+	QueueNode* newnode = malloc(sizeof(QueueNode));
+	newnode->data = x;
+	newnode->next = NULL;
+	if (pq->head == NULL)
+	{
+		pq->head = pq->tail = newnode;
+	}
+	else
+	{
+		pq->tail->next = newnode;
+		pq->tail = newnode;
+	}
+}
+void QueuePop(Queue* pq)
+{
+	assert(pq);
+	//if (pq->head = NULL)
+	//{
+	//	return;
+	//}
+	assert(!QueueEmpty(pq));
+	QueueNode* next = pq->head->next;
+	free(pq->head);
+	pq->head = next;
+	if (pq->head == NULL)
+	{
+		pq->tail = NULL;
+	}
+}
+QDataType QueueFront(Queue* pq)
+{
+	assert(pq);
+	assert(!QueueEmpty(pq));
+	return pq->head->data;
+}
+QDataType QueueBack(Queue* pq)
+{
+	assert(pq);
+	assert(!QueueEmpty(pq));
+	return pq->tail->data;
+}
+int QueueSize(Queue* pq)
+{
+	assert(pq);
+	int n = 0;
+	QueueNode* cur = pq->head;
+	while (cur)
+	{
+		++n;
+		cur = cur->next;
+	}
+	return n;//此处可以改成结构体里的size_t _size，但是怎么改，我不知道
+}
+bool QueueEmpty(Queue* pq)
+{
+	assert(pq);
+	return pq->head == NULL;
+}
+int main()
+{
+	Queue q;
+	QueueInit(&q);
+	QueuePush(&q, 1);
+	QueuePush(&q, 2);
+	QDataType front = QueueFront(&q);//早出、晚出都一样，这才是队列
+	printf("%d ", front);
+	QueuePop(&q);
+	QueuePush(&q, 3);
+	QueuePush(&q, 4);
+	while (!QueueEmpty(&q))
+	{
+		QDataType front = QueueFront(&q);//早出、晚出都一样，这才是队列
+		printf("%d ", front);
+		QueuePop(&q);
+	}
+	printf("\n");
+	return 0;
+}
