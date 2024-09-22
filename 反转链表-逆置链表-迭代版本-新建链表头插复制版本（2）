@@ -1,0 +1,85 @@
+//反转链表，逆置链表
+typedef struct ListNode
+{
+	int data;
+	struct ListNode* next;
+}ListNode;
+struct ListNode* reverseList1(struct ListNode* head)//迭代版本
+{
+	if (head == NULL)
+	{
+		return NULL;
+	}
+	struct ListNode* n1, * n2, * n3;
+	n1 = NULL;
+	n2 = head;
+	n3 = head->next;
+	while (n2)
+	{
+		n2->next = n1;
+		n1 = n2;
+		n2 = n3;
+		if (n3)
+		{
+			n3 = n3->next;
+		}
+	}
+	return n1;
+}
+struct ListNode* reverseList2(struct ListNode* head)//头插版本，相当于建立了第二个链表，然后一个个倒过去？
+{
+	struct ListNode* cur = head;
+	struct ListNode* newhead = NULL;
+	while (cur)
+	{
+		struct ListNode* next = cur->next;
+		//头插
+		cur->next = newhead;
+		newhead = cur;
+		//迭代
+		cur = next;
+	}
+	return newhead;
+}
+void ListPrint(ListNode* phead)
+{
+	ListNode* cur = phead;
+	while (cur != NULL)
+	{
+		printf("%d->", cur->data);
+		cur = cur->next;
+	}
+	printf("NULL\n");
+}
+int main()
+{
+	struct ListNode* n1 = (struct ListNode*)malloc(sizeof(struct ListNode));
+	struct ListNode* n2 = (struct ListNode*)malloc(sizeof(struct ListNode));
+	struct ListNode* n3 = (struct ListNode*)malloc(sizeof(struct ListNode));
+	struct ListNode* n4 = (struct ListNode*)malloc(sizeof(struct ListNode));
+	struct ListNode* n5 = (struct ListNode*)malloc(sizeof(struct ListNode));
+	n1->data = 1;
+	n2->data = 2;
+	n3->data = 3;
+	n4->data = 4;
+	n5->data = 5;
+	n1->next = n2;
+	n2->next = n3;
+	n3->next = n4;
+	n4->next = n5;
+	n5->next = NULL;
+	/*struct*/ ListNode* head = reverseList1(n1);//原来是这样写！！！！！！！前面不用写struct了（从来都不用），为什么（或者说我的想法从来都是错的）？？？？？？？？？？不过为什么这个里加不加都能运行，而“返回链表的中间节点”却不能这样？
+	ListPrint(head);//原来是这样写！！！！！！！！！！
+	head = reverseList2(head);
+	ListPrint(head);
+	head = reverseList2(head);
+	ListPrint(head);//为什么不能多次反转链表？？？？？？这算BUG！！！！！！！
+	////下面是错误版本，无法多次反转链表的原因是链表头被修改，后来没有被正确引用
+	///*struct*/ ListNode* head = reverseList1(n1);
+	//ListPrint(head);
+	//head = reverseList2(n1);
+	//ListPrint(head);
+	//head = reverseList2(n1);
+	//ListPrint(head);
+	return 0;
+}
