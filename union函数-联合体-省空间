@@ -1,0 +1,27 @@
+//联合体//省空间
+union Un
+{
+	int a;
+	char c;
+};
+struct St
+{
+	int a;
+	char c;
+};
+int main()
+{
+	union Un u;
+	u.a = 0x11223344;
+	u.c = 0x00;//调试看内存证明联合体机制
+	//union Un u;
+	printf("%d\n", sizeof(u));
+	printf("%p\n", &u);
+	printf("%p\n", &(u.a));
+	printf("%p\n", &(u.c));
+	struct St s;
+	printf("%d\n", sizeof(s));
+	printf("%p\n", &s);
+	printf("%p\n", &(s.a));
+	printf("%p\n", &(s.c));
+}
