@@ -1,0 +1,18 @@
+//判断当前计算机的大小端存储
+//低到高
+//01 00 00 00小端
+//00 00 00 01大端
+int check_sys()
+{
+	int a = 0;
+	return *(char*)&a;//看不懂？
+}
+int main()
+{
+	int ret = check_sys();
+	if (ret == 1)
+		printf("小端\n");
+	else
+		printf("大端\n");
+	return 0;
+}
