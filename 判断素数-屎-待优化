@@ -1,0 +1,37 @@
+int main()
+{
+	int x = 0;
+	int n = 0;
+	//scanf("%d", &x);
+	for (x = 2; ; x++)
+	{
+		int i = 0;//这俩变量只能放在这里进行初始化！！！！！！！
+		int a = 1;
+		for (i = 2; i < x; i++)
+		{
+			if (x % i == 0)
+			{
+				a=0;
+			}
+			if (a == 0)
+			{
+				break;//可以直接写到上面的if里
+			}
+			
+				if (n == 50)
+					break;
+		}
+		if (a != 0)
+		{
+			printf("\n%d ", x);
+			n++;
+		}
+		//else
+		//{
+		//	printf("\n%d不是素数", x);
+		//}
+		if (n == 50)
+		break;
+	}
+ 	return 0;
+}
