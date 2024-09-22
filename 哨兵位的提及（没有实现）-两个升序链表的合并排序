@@ -1,0 +1,112 @@
+//两个升序链表的合并排序
+typedef struct ListNode//最好这样定义指针，不信的话把typedef和末尾的ListNode删掉就看见提示了
+{
+	int data;
+	struct ListNode* next;
+}ListNode;
+struct ListNode* mergeTwoLists(struct ListNode* n1, struct ListNode* m1)
+{
+	if (n1 == NULL)
+		return m1;
+	else if (m1 == NULL)
+		return n1;
+	struct ListNode* head = NULL, * tail = NULL;
+	//if (n1->data < l1->data)//做这一步就可以不用在循环里判断head == NULL了
+	//{
+	//	head = tail = n1;
+	//	n1 = n1->next;
+	//}
+	//else
+	//{
+	//	head = tail = m1;
+	//	m1 = m1->next;
+	//}
+	head = tail = (struct ListNode*)malloc(sizeof(struct ListNode));//哨兵位，可以不用判断头的大小啦（代码里还没有改呢），要返回哨兵位的下一个节点，而且要记得释放哨兵位//怎么改？
+	while (n1 && m1)
+	{
+		if (n1->data < m1->data)//判断头的大小
+		{
+			if (head == NULL)//尾插
+			{
+				head = tail = n1;//判断头的大小
+			}
+			else
+			{
+				tail->next = n1;
+				tail = n1;
+			}
+			n1 = n1->next;
+		}
+		else
+		{
+			if (head == NULL)
+			{
+				head = tail = m1;
+			}
+			else
+			{
+				tail->next = m1;
+				tail = m1;
+			}
+			m1 = m1->next;
+		}
+	}
+	if (n1)
+	{
+		tail->next = n1;
+	}
+	else if(m1)
+	{
+		tail->next = m1;
+	}
+	struct ListNode* list = head->next;//哨兵位专用
+	free(head);//哨兵位专用
+	return list;//哨兵位专用
+	//return head;
+}
+void ListPrint(ListNode* phead)
+{
+	ListNode* cur = phead;
+	while (cur != NULL)
+	{
+		printf("%d->", cur->data);
+		cur = cur->next;
+	}
+	printf("NULL\n");
+}
+int main()
+{
+	/*struct*/ ListNode* n1 = (struct ListNode*)malloc(sizeof(struct ListNode));//事实上，用typedef重命名定义过的结构体ListNode后，就不用在ListNode前面添加struct了诶，刚学到，鹏哥、航哥都没讲，算是一个小技巧，不过有没有都一样
+	/*struct*/ ListNode* n2 = (struct ListNode*)malloc(sizeof(struct ListNode));
+	/*struct*/ ListNode* n3 = (struct ListNode*)malloc(sizeof(struct ListNode));
+	/*struct*/ ListNode* n4 = (struct ListNode*)malloc(sizeof(struct ListNode));
+	/*struct*/ ListNode* n5 = (struct ListNode*)malloc(sizeof(struct ListNode));
+	n1->data = 1;
+	n2->data = 3;
+	n3->data = 7;
+	n4->data = 8;
+	n5->data = 10;
+	n1->next = n2;
+	n2->next = n3;
+	n3->next = n4;
+	n4->next = n5;
+	n5->next = NULL;
+	/*struct*/ ListNode* m1 = (struct ListNode*)malloc(sizeof(struct ListNode));//事实上，用typedef重命名定义过的结构体ListNode后，就不用在ListNode前面添加struct了诶，刚学到，鹏哥、航哥都没讲，算是一个小技巧，不过有没有都一样
+	/*struct*/ ListNode* m2 = (struct ListNode*)malloc(sizeof(struct ListNode));
+	/*struct*/ ListNode* m3 = (struct ListNode*)malloc(sizeof(struct ListNode));
+	/*struct*/ ListNode* m4 = (struct ListNode*)malloc(sizeof(struct ListNode));
+	/*struct*/ ListNode* m5 = (struct ListNode*)malloc(sizeof(struct ListNode));
+	m1->data = 2;
+	m2->data = 5;
+	m3->data = 7;
+	m4->data = 8;
+	m5->data = 8;
+	m1->next = m2;
+	m2->next = m3;
+	m3->next = m4;
+	m4->next = m5;
+	m5->next = NULL;
+	struct ListNode* L = mergeTwoLists(n1, m1);
+	ListPrint(n1);
+	return 0;
+}
