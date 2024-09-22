@@ -1,0 +1,17 @@
+int main()
+{
+	int i = 1;
+	int n = 0;
+	int ret = 1;
+	int sum = 0;
+	int k = 0;
+	printf("计算1到k的阶乘再相加，k=\n");
+	scanf("%d", &k);
+	for (n = 1; n <= k;n++)
+	{
+		ret = ret * n;
+		sum = sum + ret;
+	}
+	printf("%d\n", sum);
+	return 0;
+}
