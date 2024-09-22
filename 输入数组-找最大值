@@ -5,7 +5,7 @@ test1()
 	int i = 0;
 	while (i < 4)
 	{
-		scanf("%d", &arr[i]);
+		scanf("%d", &arr[i]);//为什么它每次只读一个数字，下一次读空格后的下一位数字呢？是scanf的特性！
 		i++;
 	}
 	int max = arr[0];
