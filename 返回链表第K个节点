@@ -1,0 +1,95 @@
+//返回链表的第K个节点//终于过了，不过不是依靠自己的力量，而是航哥的力量！！！算了，自己花了一天时间也做不出来，倒不如学别人的
+typedef struct ListNode//最好这样定义指针，不信的话把typedef和末尾的ListNode删掉就看见提示了
+{
+	int data;
+	struct ListNode* next;
+}ListNode;
+struct ListNode* ListFind(ListNode* n1,int k)
+{
+	int i = 0;
+	struct ListNode* n0, * nk;
+	n0 = nk = n1;
+	while (i < k /*k-- *//*&& n0 != NULL这个必须得删掉*/)
+	{
+		if (n0 == NULL)
+		{
+			return NULL;
+		}
+		n0 = n0->next;
+		i++;
+	}
+	while (n0)
+	{
+		n0 = n0->next;
+		nk = nk->next;
+	}
+	return nk;
+	//这可真是误打误撞写出来的代码啊~但是它不可以搞全0的链表，返回0就是返回NULL，这永远是个错误。//看上面，那是鹏哥教的k--，但是被注释掉后换成我自己的代码就可以解决这一问题啦！！！哈哈哈哈！！！！
+}
+void ListPrint(ListNode* phead)
+{
+	ListNode* cur = phead;
+	while (cur != NULL)
+	{
+		printf("%d->", cur->data);
+		cur = cur->next;
+	}
+	printf("NULL\n");
+}
+int main()
+{
+	/*struct*/ ListNode* n1 = (struct ListNode*)malloc(sizeof(struct ListNode));//事实上，用typedef重命名定义过的结构体ListNode后，就不用在ListNode前面添加struct了诶，刚学到，鹏哥、航哥都没讲，算是一个小技巧，不过有没有都一样
+	/*struct*/ ListNode* n2 = (struct ListNode*)malloc(sizeof(struct ListNode));
+	/*struct*/ ListNode* n3 = (struct ListNode*)malloc(sizeof(struct ListNode));
+	/*struct*/ ListNode* n4 = (struct ListNode*)malloc(sizeof(struct ListNode));
+	/*struct*/ ListNode* n5 = (struct ListNode*)malloc(sizeof(struct ListNode));
+	n1->data = 5;
+	n2->data = 6;
+	n3->data = 7;
+	n4->data = 8;
+	n5->data = 9;
+	n1->next = n2;
+	n2->next = n3;
+	n3->next = n4;
+	n4->next = n5;
+	n5->next = NULL;
+	//int k = 3;
+	//ListNode* Foundk = ListFind(n1,k);
+	ListNode* FoundK = ListFind(n1, 2);//这里可以改//事实上，它返回的不是n1的地址，是返回了n1存的地址，导致了错误，但为什么只有5会出错？我知道了，因为n0->会指向最后一个节点的后一位，即NULL，然后就直接返回NULL了，因此这里必须进行优化，否则把5改成6又会出错//我不知道，似乎已经优化完了？
+	if (FoundK != NULL)
+	{
+		ListPrint(FoundK);
+	}
+	else
+	{
+		printf("Node not found\n");//为什么查找-1会打印"Node not found\n"？因为n0=nk=n1，当n0=NULL时，循环结束，此时nk必然也是NULL，但是返回了nk，所以会打印"Node not found\n"//我在说啥？
+	}
+	FoundK = (n4);//这里可以改
+	if (FoundK != NULL)
+	{
+		ListPrint(FoundK);
+	}
+	else
+	{
+		printf("Node not found\n");
+	}
+	FoundK = ListFind(n1, 3);//这里可以改
+	if (FoundK != NULL)
+	{
+		ListPrint(FoundK);
+	}
+	else
+	{
+		printf("Node not found\n");
+	}
+	FoundK = (n1->next->next->next->next);//这里可以改
+	if (FoundK != NULL)
+	{
+		ListPrint(FoundK);
+	}
+	else
+	{
+		printf("Node not found\n");
+	}
+	return 0;
+}
