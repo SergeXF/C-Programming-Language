@@ -1,0 +1,49 @@
+//返回链表的中间节点
+typedef struct ListNode//最好这样定义指针，不信的话把typedef和末尾的ListNode删掉就看见提示了
+{
+	int data;
+	struct ListNode* next;
+}ListNode;
+struct ListNode* middleNode(struct ListNode* head)
+{
+	struct ListNode* slow, * fast;
+	slow = fast = head;
+	while (fast&&fast->next)
+	{
+		slow = slow->next;
+		fast = fast->next -> next;
+	}
+	return slow;
+}
+void ListPrint(ListNode* phead)
+{
+	ListNode* cur = phead;
+	while (cur != NULL)
+	{
+		printf("%d->", cur->data);
+		cur = cur->next;
+	}
+	printf("NULL\n");
+}
+int main()
+{
+	/*struct*/ ListNode* n1 = (struct ListNode*)malloc(sizeof(struct ListNode));//事实上，用typedef重命名定义过的结构体ListNode后，就不用在ListNode前面添加struct了诶，刚学到，鹏哥、航哥都没讲，算是一个小技巧，不过有没有都一样
+	/*struct*/ ListNode* n2 = (struct ListNode*)malloc(sizeof(struct ListNode));
+	/*struct*/ ListNode* n3 = (struct ListNode*)malloc(sizeof(struct ListNode));
+	/*struct*/ ListNode* n4 = (struct ListNode*)malloc(sizeof(struct ListNode));
+	/*struct*/ ListNode* n5 = (struct ListNode*)malloc(sizeof(struct ListNode));
+	n1->data = 1;
+	n2->data = 2;
+	n3->data = 3;
+	n4->data = 4;
+	n5->data = 5;
+	n1->next = n2;
+	n2->next = n3;
+	n3->next = n4;
+	n4->next = n5;
+	n5->next = NULL;
+	/*struct*/ ListNode * n = middleNode(n1);//这个为什么不用在最前面写struct了？？？？？？？？？？
+	ListPrint(n);
+	printf("%d", n->data);
+	return 0;
+}
