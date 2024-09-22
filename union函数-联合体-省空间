@@ -14,7 +14,6 @@ int main()
 	union Un u;
 	u.a = 0x11223344;
 	u.c = 0x00;//调试看内存证明联合体机制
-	//union Un u;
 	printf("%d\n", sizeof(u));
 	printf("%p\n", &u);
 	printf("%p\n", &(u.a));
