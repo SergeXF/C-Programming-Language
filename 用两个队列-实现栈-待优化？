@@ -1,0 +1,190 @@
+//用两个队列实现栈//这个光写了，但是没理解，有空好好看看？
+#pragma once
+typedef int QDataType;
+typedef struct QueueNode
+{
+	struct QueueNode* next;
+	QDataType data;
+}QueueNode;
+typedef struct Queue
+{
+	QueueNode* head;
+	QueueNode* tail;
+	//size_t _size;
+}Queue;
+void QueueInit(Queue* pq);
+void QueueDestroy(Queue* pq);
+void QueuePush(Queue* pq, QDataType x);
+void QueuePop(Queue* pq);
+QDataType QueueFront(Queue* pq);
+QDataType QueueBack(Queue* pq);
+int QueueSize(Queue* pq);
+bool QueueEmpty(Queue* pq);
+void QueueInit(Queue* pq)
+{
+	assert(pq);
+	pq->head = NULL;
+	pq->tail = NULL;
+}
+void QueueDestroy(Queue* pq)
+{
+	assert(pq);
+	QueueNode* cur = pq->head;
+	while (cur != NULL)
+	{
+		QueueNode* next = cur->next;
+		free(cur);
+		cur = next;
+	}
+	pq->head = pq->tail = NULL;
+}
+void QueuePush(Queue* pq, QDataType x)
+{
+	assert(pq);
+	QueueNode* newnode = malloc(sizeof(QueueNode));
+	newnode->data = x;
+	newnode->next = NULL;
+	if (pq->head == NULL)
+	{
+		pq->head = pq->tail = newnode;
+	}
+	else
+	{
+		pq->tail->next = newnode;
+		pq->tail = newnode;
+	}
+}
+void QueuePop(Queue* pq)
+{
+	assert(pq);
+	//if (pq->head = NULL)
+	//{
+	//	return;
+	//}
+	assert(!QueueEmpty(pq));
+	QueueNode* next = pq->head->next;
+	free(pq->head);
+	pq->head = next;
+	if (pq->head == NULL)
+	{
+		pq->tail = NULL;
+	}
+}
+QDataType QueueFront(Queue* pq)
+{
+	assert(pq);
+	assert(!QueueEmpty(pq));
+	return pq->head->data;
+}
+QDataType QueueBack(Queue* pq)
+{
+	assert(pq);
+	assert(!QueueEmpty(pq));
+	return pq->tail->data;
+}
+int QueueSize(Queue* pq)
+{
+	assert(pq);
+	int n = 0;
+	QueueNode* cur = pq->head;
+	while (cur)
+	{
+		++n;
+		cur = cur->next;
+	}
+	return n;//此处可以改成结构体里的size_t _size，但是怎么改，我不知道
+}
+bool QueueEmpty(Queue* pq)
+{
+	assert(pq);
+	return pq->head == NULL;
+}
+typedef struct
+{
+	Queue q1;
+	Queue q2;
+}MyStack;
+MyStack* myStackCreate() 
+{
+	//MyStack st;
+	//return &st;//不能这么写，出了结构域就会销毁了
+	MyStack* st = (MyStack*)malloc(sizeof(MyStack));//如果是malloc出来的，就可以啦
+	QueueInit(&st->q1);
+	QueueInit(&st->q2);
+	return st;
+}
+void myStackPush(MyStack* obj, int x) 
+{
+	if (!QueueEmpty(&obj->q1))
+	{
+		QueuePush(&obj->q1, x);
+	}
+	else
+	{
+		QueuePush(&obj->q2, x);
+	}
+}
+int myStackPop(MyStack* obj) 
+{
+	Queue* emptyQ = &obj->q1;
+	Queue* nonemptyQ = &obj->q2;
+	if (!QueueEmpty(&obj->q1))
+	{
+		emptyQ = &obj->q2;
+		nonemptyQ = &obj->q1;
+	}
+	while (QueueSize(nonemptyQ) > 1)
+	{
+		QueuePush(emptyQ, QueueFront(nonemptyQ));
+		QueuePop(nonemptyQ);
+	}
+	int top = QueueFront(nonemptyQ);
+	QueuePop(nonemptyQ);
+	return top;
+}
+int myStackTop(MyStack* obj) 
+{
+	if (!QueueEmpty(&obj->q1))
+	{
+		return QueueBack(&obj->q1);
+	}
+	else
+	{
+		return QueueBack(&obj->q2);
+	}
+}
+bool myStackEmpty(MyStack* obj) 
+{
+	return QueueEmpty(&obj->q1) && QueueEmpty(&obj->q2);
+}
+void myStackFree(MyStack* obj) 
+{
+	QueueDestroy(&obj->q1);
+	QueueDestroy(&obj->q2);
+	free(obj);
+}
+void printStack(MyStack* obj)//这个是AI写的，等下好好看看
+{
+	Queue* nonemptyQ = &obj->q1;
+	if (QueueEmpty(&obj->q1)) {
+		nonemptyQ = &obj->q2;
+	}
+	QueueNode* cur = nonemptyQ->head;
+	while (cur) {
+		printf("%d ", cur->data);
+		cur = cur->next;
+	}
+	printf("\n");
+}
+int main()
+{
+	MyStack* st = myStackCreate();//和以前所有的创建结构体的方法不一样，要区分开来
+	myStackPush(st, 1);
+	myStackPush(st, 2);
+	myStackPush(st, 3);
+	printStack(st);
+	myStackPop(st);
+	printStack(st);
+	myStackFree(st);
+	return 0;
+}
