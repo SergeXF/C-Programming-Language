@@ -1,0 +1,80 @@
+//判断链表的回文结构//航哥版
+typedef struct ListNode
+{
+	int val;
+	struct ListNode* next;
+}ListNode;
+struct ListNode* reverseList2(struct ListNode* head)//头插版本，相当于建立了第二个链表，然后一个个倒过去？
+{
+	struct ListNode* cur = head;
+	struct ListNode* newhead = NULL;
+	while (cur)
+	{
+		struct ListNode* next = cur->next;
+		//头插
+		cur->next = newhead;
+		newhead = cur;
+		//迭代
+		cur = next;
+	}
+	return newhead;
+}
+struct ListNode* middleNode(struct ListNode* head)//中间//中点
+{
+	struct ListNode* slow, * fast;
+	slow = fast = head;
+	while (fast && fast->next)
+	{
+		slow = slow->next;
+		fast = fast->next->next;
+	}
+	return slow;
+}
+bool chkPalindrome(ListNode* A)
+{
+	struct ListNode* mid = middleNode(A);
+	struct ListNode* rHead = reverseList2(mid);
+	struct ListNode* curA = A;
+	struct ListNode* curR = rHead;
+	while (curA && curR)
+	{
+		if (curA->val != curR->val)
+		{
+			return false;
+		}
+		else
+		{
+			curA = curA->next;
+			curR = curR->next;
+		}
+	}
+	return true;
+}
+void ListPrint(ListNode* phead)
+{
+	ListNode* cur = phead;
+	while (cur != NULL)
+	{
+		printf("%d->", cur->val);
+		cur = cur->next;
+	}
+	printf("NULL\n");
+}
+int main()
+{
+	struct ListNode* n1 = (struct ListNode*)malloc(sizeof(struct ListNode));
+	struct ListNode* n2 = (struct ListNode*)malloc(sizeof(struct ListNode));
+	struct ListNode* n3 = (struct ListNode*)malloc(sizeof(struct ListNode));
+	struct ListNode* n4 = (struct ListNode*)malloc(sizeof(struct ListNode));
+	n1->val = 0;
+	n2->val = 0;
+	n3->val = 0;
+	n4->val = 0;
+	n1->next = n2;
+	n2->next = n3;
+	n3->next = n4;
+	n4->next = NULL;
+	bool A = chkPalindrome(n1);
+	printf("%d",A);
+	return 0;
+}
