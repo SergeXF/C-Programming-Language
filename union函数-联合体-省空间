@@ -13,7 +13,7 @@ int main()
 {
 	union Un u;
 	u.a = 0x11223344;
-	u.c = 0x00;//调试看内存证明联合体机制
+	u.c = 0x00;//调试看内存证明联合体机制？看不懂了，回去重看鹏哥视频吧！
 	printf("%d\n", sizeof(u));
 	printf("%p\n", &u);
 	printf("%p\n", &(u.a));
